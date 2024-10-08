@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #b0e0e6; /* powderblue */
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            text-align: center;
+            background-color: #4682b4; /* steelblue */
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        #content {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4682b4; /* steelblue */
+            color: white;
+            border: none;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #36648b; /* darker steelblue */
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4682b4; /* steelblue */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #36648b; /* darker steelblue */
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>HOSPITAL NOVA</h1>
+    </div>
+
+    <div id="content">
+        <p>Hello, Dr: <span th:text="${username}"></span></p>
+        <form action="#" th:action="@{/logout}">
+            <button type="submit">Logout</button>
+        </form>
+        <a th:href="@{/jsoncalendar}">Schedule</a>
+        <a th:href="@{doctors/doctorAppointments}">Appointments</a>
+    </div>
+</body>
+</html>

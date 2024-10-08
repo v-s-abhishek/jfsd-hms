@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Appointments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* powderblue */
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            text-align: center;
+            background-color: #4682b4; /* steelblue */
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        #content {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            text-align: center;
+        }
+
+        table {
+            margin: 0 auto;
+        }
+
+        td {
+            padding: 5px 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4682b4; /* steelblue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #36648b; /* darker steelblue */
+        }
+
+        a {
+            color: #4682b4; /* steelblue */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>HOSPITAL NOVA</h1>
+    </div>
+
+    <div id="content">
+        <h2 style="text-align: center;">Cancel Appointment</h2>
+        <hr>
+        <p style="text-align: center;"><a th:href="@{/patients}">homepage</a></p>
+        <hr>
+        <form action="#" th:action="@{/cancel}" th:object="${appointment}">
+            <table border="0" cellpadding="10">
+                <tr>
+                    <td>Appointment ID:</td>
+                    <td><input type="text" th:field="*{appointment_id}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <small>Note: This action cannot be undone!</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button type="submit">Confirm</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
