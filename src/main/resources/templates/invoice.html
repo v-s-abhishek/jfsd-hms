@@ -1,36 +1,98 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org"
->
-<body style="background-color:powderblue;">
-<div align="center">
-        <h1>Create New Invoice</h1>
-        <br />
-        <form action="/receptionist" th:action="@{/saveInvoice}" th:object="${invoice}" id="myform">
- 
-            <table border="0" cellpadding="10">
-                <tr>
-                    <td>Amount:</td>
-                  <td><textarea  rows = "1" cols = "20" th:field = "*{invoice}" form = "myform" >Enter the amount </textarea> </td>
-                
-                </tr>
-                <tr>
-                    <td>Appointment ID:</td>
-                    <td><input type="number" th:field="*{appointmentID}"></td>
-                </tr>
-                <tr>
-                    <td>patient name:</td>
-                    <td><input type="text" th:field="*{patientName}" /></td>
-                </tr>
-                  
-                <tr>
-                    <td colspan="2"><button type="submit">Save</button> </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            background-color: powderblue;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .transaction-details {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            background-color: white;
+        }
+        .qr-code {
+            margin: 20px 0;
+        }
+        #timer {
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        // Timer logic
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
 
-</body>
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    display.textContent = "Transaction Timed Out";
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            const timeLimit = 5 * 60; // 5 minutes in seconds
+            const display = document.querySelector('#timer');
+            startTimer(timeLimit, display);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Create New Invoice</h1>
+        <div class="transaction-details">
+            <form action="/receptionist" th:action="@{/saveInvoice}" th:object="${invoice}" id="myform">
+                <table border="0" cellpadding="10">
+                    <tr>
+                        <td>Amount:</td>
+                        <td>
+                            <textarea rows="1" cols="20" th:field="*{invoice}" form="myform">Enter the amount</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Appointment ID:</td>
+                        <td><input type="number" th:field="*{appointmentID}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Patient Name:</td>
+                        <td><input type="text" th:field="*{patientName}" /></td>
+                    </tr>
+                </table>
+                <div class="qr-code">
+                    <h3>Scan QR Code to Proceed</h3>
+                    <img src="https://via.placeholder.com/150" alt="QR Code" />
+                </div>
+                <div id="timer">05:00</div>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
